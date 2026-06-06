@@ -30,11 +30,10 @@ export default function GradeDisplay({ grade, pct, isRescueDay }) {
             </span>
           )}
         </div>
-        <div className="flex items-baseline gap-1">
+        <div className="flex items-baseline">
           <span className={`font-display text-5xl leading-none tabular-nums ${cfg ? cfg.color : 'text-zinc-700'}`}>
-            {pct}
+            {pct}<span className="text-zinc-600 text-xl font-mono">%</span>
           </span>
-          <span className="text-zinc-600 text-xl font-mono">%</span>
         </div>
         <div className="text-zinc-600 text-xs font-mono mt-1">complete</div>
       </div>

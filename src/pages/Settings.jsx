@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { TaskContext } from '../context/TaskContext';
+import { formatTime12h } from '../utils/dateHelper';
 
 export default function Settings() {
   const { schedule, updateSchedule } = useContext(TaskContext);
@@ -106,8 +107,8 @@ export default function Settings() {
                   key={time}
                   className="group flex items-center gap-4 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-900 hover:border-zinc-400 dark:hover:border-zinc-700 p-4 transition-colors"
                 >
-                  <div className="font-mono text-sm text-zinc-500 w-16 shrink-0">
-                    {time}
+                  <div className="font-mono text-sm text-zinc-500 w-20 shrink-0">
+                    {formatTime12h(time)}
                   </div>
                   
                   {editing === time ? (
@@ -156,7 +157,7 @@ export default function Settings() {
             </li>
             <li className="flex gap-3">
               <span className="text-zinc-600">→</span>
-              <span>Use 24-hour time. 06:00 = 6am, 18:00 = 6pm.</span>
+              <span>Times display in 12-hour format. The time picker uses your system's format.</span>
             </li>
             <li className="flex gap-3">
               <span className="text-zinc-600">→</span>

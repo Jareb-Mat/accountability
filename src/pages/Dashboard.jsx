@@ -6,10 +6,12 @@ import ConsistencyChart from '../components/ConsistencyChart';
 import FocusTimer from '../components/FocusTimer';
 const getTimeWithSeconds = () => {
   const now = new Date();
-  const h = String(now.getHours()).padStart(2, '0');
-  const m = String(now.getMinutes()).padStart(2, '0');
-  const s = String(now.getSeconds()).padStart(2, '0');
-  return `${h}:${m}:${s}`;
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const s = now.getSeconds();
+  const period = h >= 12 ? 'PM' : 'AM';
+  const hour12 = h % 12 || 12;
+  return `${hour12}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}${period.toLowerCase()}`;
 };
 
 export default function Dashboard() {
@@ -76,8 +78,7 @@ export default function Dashboard() {
               className="text-3xl tabular-nums"
               style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-primary)' }}
             >
-              {completionRate}
-              <span className="text-lg" style={{ color: 'var(--text-muted)' }}>%</span>
+              {completionRate}<span className="text-lg" style={{ color: 'var(--text-muted)' }}>%</span>
             </div>
           </div>
         </div>

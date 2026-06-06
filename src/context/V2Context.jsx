@@ -103,23 +103,23 @@ export function V2Provider({ children }) {
   }, []);
 
   // ── Live grade (derived) ──────────────────────────────────────────────────
-  const liveGrade = useMemo(
-    () =>
-      computeGrade(
-        state.todayPlan.tasks,
-        state.profile.mvd_tasks,
-        state.todayAttendance,
-        state.todayClasses,
-        state.todayPlan.is_rescue_day || false
-      ),
-    [state.todayPlan.tasks, state.profile.mvd_tasks, state.todayAttendance, state.todayClasses, state.todayPlan.is_rescue_day]
-  );
+  const liveGrade = useMemo(() => {
+    if (!state.todayPlan.tasks.length && state.todayPlan.wake_confirmed) return 'A';
+    return computeGrade(
+      state.todayPlan.tasks,
+      state.profile.mvd_tasks,
+      state.todayAttendance,
+      state.todayClasses,
+      state.todayPlan.is_rescue_day || false
+    );
+  }, [state.todayPlan.tasks, state.todayPlan.wake_confirmed, state.profile.mvd_tasks, state.todayAttendance, state.todayClasses, state.todayPlan.is_rescue_day]);
 
   const livePct = useMemo(() => {
     const t = state.todayPlan.tasks;
+    if (!t.length && state.todayPlan.wake_confirmed) return 100;
     if (!t.length) return 0;
     return Math.round((t.filter((x) => x.completed).length / t.length) * 100);
-  }, [state.todayPlan.tasks]);
+  }, [state.todayPlan.tasks, state.todayPlan.wake_confirmed]);
 
   const mvdStatus = useMemo(() => {
     const mvd = state.todayPlan.tasks.filter((t) => t.is_mvd);
@@ -196,6 +196,9 @@ export function V2Provider({ children }) {
       payload: { ...state.todayPlan, wake_confirmed: true },
     });
     dispatch({ type: 'SET_WAKE_STATUS', payload: 'confirmed' });
+    if (!state.todayPlan.tasks.length) {
+      await setGradeForDate(todayKey, { grade: 'A', pct: 100, mvd_met: true, is_rescue_day: false });
+    }
   }, [todayKey, state.todayPlan]);
 
   const setAttendance = useCallback(async (classId, attended) => {

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 function getParts() {
   const now = new Date();
-  const h = String(now.getHours()).padStart(2, '0');
-  const m = String(now.getMinutes()).padStart(2, '0');
-  const s = String(now.getSeconds()).padStart(2, '0');
-  return { hm: `${h}:${m}`, s };
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const s = now.getSeconds();
+  const period = h >= 12 ? 'PM' : 'AM';
+  const hour12 = h % 12 || 12;
+  return { hm: `${hour12}:${String(m).padStart(2, '0')}`, s: String(s).padStart(2, '0'), period };
 }
 
 export default function ClockV2() {
@@ -23,6 +25,9 @@ export default function ClockV2() {
       </span>
       <span style={{ fontSize: '14px', color: 'var(--text-muted)', marginLeft: '2px' }}>
         :{parts.s}
+      </span>
+      <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+        {parts.period.toLowerCase()}
       </span>
     </span>
   );

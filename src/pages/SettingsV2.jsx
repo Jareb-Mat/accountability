@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useV2 } from '../context/V2Context';
 import ClockV2 from '../components/v2/ClockV2';
+import { formatTime12h } from '../utils/dateHelper';
 
 export default function SettingsV2() {
   const { loading, profile, saveProfile } = useV2();
@@ -128,7 +129,7 @@ export default function SettingsV2() {
             </div>
             <p className="text-zinc-500 text-xs mt-2">
               {wakeTime
-                ? `Button is green from ${wakeTime} for ${deadline} minutes. After that it turns red.`
+                ? `Button is green from ${formatTime12h(wakeTime)} for ${deadline} minutes. After that it turns red.`
                 : 'No wake time set — confirmation banner will not appear.'}
             </p>
           </section>

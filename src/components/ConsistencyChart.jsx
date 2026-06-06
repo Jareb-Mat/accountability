@@ -33,8 +33,7 @@ export default function ConsistencyChart() {
           className="text-2xl font-semibold tabular-nums"
           style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-primary)' }}
         >
-          {avgScore}
-          <span className="text-base font-normal" style={{ color: 'var(--text-muted)' }}>%</span>
+          {avgScore}<span className="text-base font-normal" style={{ color: 'var(--text-muted)' }}>%</span>
         </span>
         <span className="text-sm" style={{ color: 'var(--text-muted)' }}>7-day average</span>
       </div>

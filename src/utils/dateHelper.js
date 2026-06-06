@@ -15,12 +15,21 @@ export const dateFromKey = (key) => {
   return new Date(year, month - 1, day);
 };
 
-// Get current time as HH:MM
+// Get current time as HH:MM (24h, used internally for comparisons)
 export const getCurrentTime = () => {
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
   return `${hours}:${minutes}`;
+};
+
+// Convert HH:MM (24h) to 12-hour display string, e.g. "2:30 PM"
+export const formatTime12h = (time24) => {
+  if (!time24) return '';
+  const [h, m] = time24.split(':').map(Number);
+  const period = h >= 12 ? 'PM' : 'AM';
+  const hour = h % 12 || 12;
+  return `${hour}:${String(m).padStart(2, '0')}${period.toLowerCase()}`;
 };
 
 // Check if time has passed

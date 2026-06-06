@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { TaskContext } from '../context/TaskContext';
+import { formatTime12h } from '../utils/dateHelper';
 
 export default function DailyChecklist({ tasks }) {
   const { toggleTask, markTaskFailed } = useContext(TaskContext);
@@ -40,7 +41,7 @@ function TaskRow({ task, onComplete, onSkip, onUndo }) {
         className="text-xs tabular-nums shrink-0 w-10"
         style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}
       >
-        {task.time}
+        {formatTime12h(task.time)}
       </span>
 
       {/* Title */}

@@ -54,8 +54,7 @@ export default function WeeklyReview() {
                 className="text-2xl tabular-nums"
                 style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-primary)' }}
               >
-                {weeklyStats.avgPercentage}
-                <span className="text-base" style={{ color: 'var(--text-muted)' }}>%</span>
+                {weeklyStats.avgPercentage}<span className="text-base" style={{ color: 'var(--text-muted)' }}>%</span>
               </div>
             </div>
           </div>
